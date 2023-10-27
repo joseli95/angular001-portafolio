@@ -1,5 +1,5 @@
 <html>
-
+<meta charset="UTF-8">
 <head>
     <title>JS & DOM</title>
 </head>
@@ -38,9 +38,35 @@
         const tituloEncabezado = document.getElementById('encabezado')
         const inputEncabezado = document.getElementById('inputEncabezado')
 
+        let vecesCambio = 0
+        let titulos = []
         function modificarEncabezado() {
             /* Tu código aquí */
+
+          if (inputEncabezado.value === '') {
+            alert('El valor no puede ser vacío')
+          } else {
+            vecesCambio++
+            titulos.push(tituloEncabezado.textContent)
+            tituloEncabezado.textContent = inputEncabezado.value
+
+            if (vecesCambio >= 2) {
+              btnUndo.removeAttribute('disabled')
+            }
+
+            console.log(titulos)
+            inputEncabezado.value = ''
+          }
         }
+
+        btnUndo.addEventListener('click', () => {
+          tituloEncabezado.textContent = titulos.pop()
+
+          if (titulos.length < 1) {
+            btnUndo.setAttribute('disabled', 'disabled');
+          }
+        })
+
     </script>
 </body>
 
